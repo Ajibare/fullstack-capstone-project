@@ -1,6 +1,9 @@
 require('dotenv').config();
 const MongoClient = require('mongodb').MongoClient;
 const fs = require('fs');
+  const express = require('express');
+const app = express();
+const giftsRouter = require('./routes/gifts'); 
 
 // MongoDB connection URL with authentication options
 let url = `${process.env.MONGO_URL}`;
@@ -48,3 +51,24 @@ loadData();
 module.exports = {
     loadData,
   };
+
+// adjust path if needed
+
+// Middleware to parse JSON
+app.use(express.json());
+
+// Mount the /api/gifts route
+app.use('/api/gifts', giftsRouter);
+
+// Health check route (optional)
+app.get('/', (req, res) => {
+  res.send('GiftLink Backend is running ✅');
+});
+
+// Start the server (if app.js is the entry file)
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
+
+module.exports = app;
