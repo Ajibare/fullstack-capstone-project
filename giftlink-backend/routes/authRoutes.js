@@ -4,8 +4,10 @@ const jwt = require('jsonwebtoken');
 const connectToDatabase = require('../models/db');
 const router = express.Router();
 const dotenv = require('dotenv');
-const pino = require('pino');  // Import Pino logger
+const pino = require('pino');  // Import Pino 
 dotenv.config();
+
+
 
 const logger = pino();  // Create a Pino logger instance
 
